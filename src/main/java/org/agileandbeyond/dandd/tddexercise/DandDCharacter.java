@@ -1,15 +1,28 @@
 package org.agileandbeyond.dandd.tddexercise;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class DandDCharacter {
+	
+	private static int CRITICAL_HIT = 20;
 	
 	private String name;
 	private Alignment alignment;
 	private int armorClass = 10;
 	private int hitPoints = 5;
-	private Ability strength;
-	
-	private static int CRITICAL_HIT = 20;
+	private Map<AbilityType, Ability> abilities;
 
+	public DandDCharacter() {
+		abilities = new HashMap<AbilityType, Ability>();
+		abilities.put(AbilityType.STRENGTH, new Ability(AbilityType.STRENGTH));
+		abilities.put(AbilityType.DEXTERITY, new Ability(AbilityType.DEXTERITY));
+		abilities.put(AbilityType.CHARISMA, new Ability(AbilityType.CHARISMA));
+		abilities.put(AbilityType.CONSTITUTION, new Ability(AbilityType.CONSTITUTION));
+		abilities.put(AbilityType.INTELLIGENCE, new Ability(AbilityType.INTELLIGENCE));
+		abilities.put(AbilityType.WISDOM, new Ability(AbilityType.WISDOM));
+	}
+	
 	public Alignment getAlignment() {
 		return alignment;
 	}
@@ -70,8 +83,36 @@ public class DandDCharacter {
 		return hitPoints <= 0;
 	}
 
-	public Ability getAbility(AbilityType strength) {
-		return new Ability();
+	public Ability getAbility(AbilityType abilityType) {
+		return abilities.get(abilityType);
+	}
+
+	protected Map<AbilityType, Ability> getAbilities() {
+		return abilities;
+	}
+
+	public void setStrength(int score) {
+		abilities.get(AbilityType.STRENGTH).setScore(score);
+	}
+
+	public void setDexterity(int score) {
+		abilities.get(AbilityType.DEXTERITY).setScore(score);
+	}
+
+	public void setCharisma(int score) {
+		abilities.get(AbilityType.CHARISMA).setScore(score);
+	}
+
+	public void setConstitution(int score) {
+		abilities.get(AbilityType.CONSTITUTION).setScore(score);
+	}
+
+	public void setIntelligence(int score) {
+		abilities.get(AbilityType.INTELLIGENCE).setScore(score);
+	}
+
+	public void setWisdom(int score) {
+		abilities.get(AbilityType.WISDOM).setScore(score);
 	}
 
 }

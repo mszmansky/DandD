@@ -17,6 +17,11 @@ public class Ability {
 		initiateModifiers();
 	}
 	
+	public Ability(AbilityType type) {
+		initiateModifiers();
+		this.type = type;
+	}
+	
 	public Ability(int score) {
 		initiateModifiers();
 		this.score = score;
