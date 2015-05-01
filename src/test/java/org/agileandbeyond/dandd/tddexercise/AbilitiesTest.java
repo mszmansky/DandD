@@ -33,7 +33,7 @@ public class AbilitiesTest {
 	}
 	
 	@Test
-	public void abilityModifierSHouldBeCorrectWhenScoreIsTwenty() {
+	public void abilityModifierShouldBeCorrectWhenScoreIsTwenty() {
 		Ability ability = new Ability(20);
 		assertEquals(5, ability.getModifier());
 	}
@@ -50,10 +50,25 @@ public class AbilitiesTest {
 	}
 	
 	@Test
-	public void abilityShouldHaveTheCorrectType() {
+	public void abilityShouldHaveTheCorrectTypeWhenTypeIsStrength() {
 		Ability ability = new Ability(1);
 		ability.setType(AbilityType.STRENGTH);
+		
 		assertEquals(AbilityType.STRENGTH, ability.getType());
+	}
+	@Test
+	public void abilityShouldHaveTheCorrectTypeIsDexterity() {
+		Ability ability = new Ability(1);
+		ability.setType(AbilityType.DEXTERITY);
+		
+		assertEquals(AbilityType.DEXTERITY, ability.getType());
+	}
+	
+	@Test
+	public void abilityShouldBeConstructedWithModierMapNotNullUsingDefaultConstructor() {
+		Ability ability = new Ability();
+		
+		assertNotNull(ability.getModifier());
 	}
 	
 }

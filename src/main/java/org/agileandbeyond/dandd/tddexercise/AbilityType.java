@@ -2,6 +2,11 @@ package org.agileandbeyond.dandd.tddexercise;
 
 public enum AbilityType {
 
-	STRENGTH;
+	STRENGTH,
+	DEXTERITY,
+	CONSTITUTION,
+	WISDOM,
+	INTELLIGENCE,
+	CHARISMA;
 	
 }

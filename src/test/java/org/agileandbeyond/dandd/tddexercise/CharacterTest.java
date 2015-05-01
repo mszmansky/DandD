@@ -1,6 +1,12 @@
 package org.agileandbeyond.dandd.tddexercise;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -132,7 +138,90 @@ public class CharacterTest {
 	@Test
 	public void characterStrengthAbilityShouldHaveCorrectType() {
 		Ability strength = character.getAbility(AbilityType.STRENGTH);
-		assertEquals(AbilityType.STRENGTH, strength);
+		
+		assertEquals(AbilityType.STRENGTH, strength.getType());
+	}
+	
+	@Test
+	public void characterDexterityAbilityShouldHaveCorrectType() {
+		Ability strength = character.getAbility(AbilityType.DEXTERITY);
+		
+		assertEquals(AbilityType.DEXTERITY, strength.getType());
+	}
+	@Test
+	public void characterCharismaAbilityShouldHaveCorrectType() {
+		Ability strength = character.getAbility(AbilityType.CHARISMA);
+		
+		assertEquals(AbilityType.CHARISMA, strength.getType());
+	}
+	@Test
+	public void characterConstitutionAbilityShouldHaveCorrectType() {
+		Ability strength = character.getAbility(AbilityType.CONSTITUTION);
+		
+		assertEquals(AbilityType.CONSTITUTION, strength.getType());
+	}
+	@Test
+	public void characterIntelligenceAbilityShouldHaveCorrectType() {
+		Ability strength = character.getAbility(AbilityType.INTELLIGENCE);
+		
+		assertEquals(AbilityType.INTELLIGENCE, strength.getType());
+	}
+	@Test
+	public void characterWisdomAbilityShouldHaveCorrectType() {
+		Ability strength = character.getAbility(AbilityType.WISDOM);
+		
+		assertEquals(AbilityType.WISDOM, strength.getType());
+	}
+	
+	@Test
+	public void characterShouldHaveAllSixAbilities() {
+		Map<AbilityType, Ability> abilities = character.getAbilities();
+		
+		assertEquals(6, abilities.size());
+	}
+	
+	@Test
+	public void shouldBeAbleToSetTheCharactersStrength() {
+		character.setStrength(15);
+		
+		assertEquals(15, character.getAbility(AbilityType.STRENGTH).getScore());
+	}
+	
+//	abilities.put(AbilityType.STRENGTH, new Ability(AbilityType.STRENGTH));
+//	abilities.put(AbilityType.DEXTERITY, new Ability(AbilityType.DEXTERITY));
+//	abilities.put(AbilityType.CHARISMA, new Ability(AbilityType.CHARISMA));
+//	abilities.put(AbilityType.CONSTITUTION, new Ability(AbilityType.CONSTITUTION));
+//	abilities.put(AbilityType.INTELLIGENCE, new Ability(AbilityType.INTELLIGENCE));
+//	abilities.put(AbilityType.WISDOM, new Abili
+	@Test
+	public void shouldBeAbleToSetTheCharactersDexterity() {
+		character.setDexterity(12);
+		
+		assertEquals(12, character.getAbility(AbilityType.DEXTERITY).getScore());
+	}
+	@Test
+	public void shouldBeAbleToSetTheCharactersCharisma() {
+		character.setCharisma(11);
+		
+		assertEquals(11, character.getAbility(AbilityType.CHARISMA).getScore());
+	}
+	@Test
+	public void shouldBeAbleToSetTheCharactersConstitution() {
+		character.setConstitution(9);
+		
+		assertEquals(9, character.getAbility(AbilityType.CONSTITUTION).getScore());
+	}
+	@Test
+	public void shouldBeAbleToSetTheCharactersIntelligence() {
+		character.setIntelligence(8);
+		
+		assertEquals(8, character.getAbility(AbilityType.INTELLIGENCE).getScore());
+	}
+	@Test
+	public void shouldBeAbleToSetTheCharactersWisdom() {
+		character.setWisdom(7);
+		
+		assertEquals(7, character.getAbility(AbilityType.WISDOM).getScore());
 	}
 	
 }
