@@ -148,24 +148,28 @@ public class CharacterTest {
 		
 		assertEquals(AbilityType.DEXTERITY, strength.getType());
 	}
+	
 	@Test
 	public void characterCharismaAbilityShouldHaveCorrectType() {
 		Ability strength = character.getAbility(AbilityType.CHARISMA);
 		
 		assertEquals(AbilityType.CHARISMA, strength.getType());
 	}
+	
 	@Test
 	public void characterConstitutionAbilityShouldHaveCorrectType() {
 		Ability strength = character.getAbility(AbilityType.CONSTITUTION);
 		
 		assertEquals(AbilityType.CONSTITUTION, strength.getType());
 	}
+	
 	@Test
 	public void characterIntelligenceAbilityShouldHaveCorrectType() {
 		Ability strength = character.getAbility(AbilityType.INTELLIGENCE);
 		
 		assertEquals(AbilityType.INTELLIGENCE, strength.getType());
 	}
+	
 	@Test
 	public void characterWisdomAbilityShouldHaveCorrectType() {
 		Ability strength = character.getAbility(AbilityType.WISDOM);
@@ -193,24 +197,28 @@ public class CharacterTest {
 		
 		assertEquals(12, character.getAbility(AbilityType.DEXTERITY).getScore());
 	}
+	
 	@Test
 	public void shouldBeAbleToSetTheCharactersCharisma() {
 		character.setCharisma(11);
 		
 		assertEquals(11, character.getAbility(AbilityType.CHARISMA).getScore());
 	}
+	
 	@Test
 	public void shouldBeAbleToSetTheCharactersConstitution() {
 		character.setConstitution(9);
 		
 		assertEquals(9, character.getAbility(AbilityType.CONSTITUTION).getScore());
 	}
+	
 	@Test
 	public void shouldBeAbleToSetTheCharactersIntelligence() {
 		character.setIntelligence(8);
 		
 		assertEquals(8, character.getAbility(AbilityType.INTELLIGENCE).getScore());
 	}
+	
 	@Test
 	public void shouldBeAbleToSetTheCharactersWisdom() {
 		character.setWisdom(7);

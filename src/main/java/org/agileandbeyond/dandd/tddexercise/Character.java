@@ -97,7 +97,7 @@ public class Character {
 		abilities.get(AbilityType.WISDOM).setScore(score);
 	}
 
-	public Object getExperiencePoints() {
+	public int getExperiencePoints() {
 		return experiencePoints;
 	}	
 
