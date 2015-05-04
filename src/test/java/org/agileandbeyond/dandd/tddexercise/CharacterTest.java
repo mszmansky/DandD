@@ -13,13 +13,13 @@ import org.junit.Test;
 
 public class CharacterTest {
 	
-	private DandDCharacter character;
-	private DandDCharacter monster;
+	private Character character;
+	private Character combatant;
 	
 	@Before
 	public void before() {
-		character = new DandDCharacter();
-		monster = new DandDCharacter();
+		character = new Character();
+		combatant = new Character();
 	}
 
 	@Test
@@ -81,53 +81,53 @@ public class CharacterTest {
 	
 	@Test
 	public void charactersAttackIsSuccessfulWhenRollIsGreaterThanCombatantsArmorClass() {
-		monster.setArmorClass(12);
-		assertTrue(character.attack(monster, 20));
+		combatant.setArmorClass(12);
+		assertTrue(character.attack(combatant, 20));
 	}
 	
 	@Test
 	public void charactersAttackIsSuccessfulWhenRollIsEqualToCombatantsArmorClass() {
-		monster.setArmorClass(12);
-		assertTrue(character.attack(monster, 12));
+		combatant.setArmorClass(12);
+		assertTrue(character.attack(combatant, 12));
 	}
 	
 	@Test
 	public void charactersAttacksFailsWhenRollIsLessThanCombatantsArmorClass() {
-		monster.setArmorClass(12);
-		assertFalse(character.attack(monster, 11));
+		combatant.setArmorClass(12);
+		assertFalse(character.attack(combatant, 11));
 	}
 	
 	@Test
 	public void whenAttackIsSuccessFullCombtantsTakesOnePointOfDamage () {
-		int initHitPoints = monster.getHitPoints();
-		int attackRoll = monster.getArmorClass();
+		int initHitPoints = combatant.getHitPoints();
+		int attackRoll = combatant.getArmorClass();
 		
-		character.attack(monster, attackRoll);
+		character.attack(combatant, attackRoll);
 		
-		assertTrue(initHitPoints-1 == monster.getHitPoints());
+		assertTrue(initHitPoints-1 == combatant.getHitPoints());
 	}
 	
 	@Test
 	public void whenAttackIsSuccessfullAndRoleIsTwentyCambatantTakesDoubleDamage() {
-		int initHitPoints = monster.getHitPoints();
+		int initHitPoints = combatant.getHitPoints();
 		
-		character.attack(monster, 20);
+		character.attack(combatant, 20);
 		
-		assertTrue(initHitPoints-2 == monster.getHitPoints());
+		assertTrue(initHitPoints-2 == combatant.getHitPoints());
 	}
 	
 	@Test
 	public void combatantIsDeadWhenHitPointsAreZero() {
-		while (monster.getHitPoints() > 0) {
-			character.attack(monster, monster.getArmorClass());
+		while (combatant.getHitPoints() > 0) {
+			character.attack(combatant, combatant.getArmorClass());
 		}
 		
-		assertTrue(monster.isDead());
+		assertTrue(combatant.isDead());
 	}
 	
 	@Test
 	public void combatantIsNotDeadWhenHitPointsAreGreaterThanZero() {
-		assertFalse(monster.isDead());
+		assertFalse(combatant.isDead());
 	}
 	
 	@Test
@@ -187,12 +187,6 @@ public class CharacterTest {
 		assertEquals(15, character.getAbility(AbilityType.STRENGTH).getScore());
 	}
 	
-//	abilities.put(AbilityType.STRENGTH, new Ability(AbilityType.STRENGTH));
-//	abilities.put(AbilityType.DEXTERITY, new Ability(AbilityType.DEXTERITY));
-//	abilities.put(AbilityType.CHARISMA, new Ability(AbilityType.CHARISMA));
-//	abilities.put(AbilityType.CONSTITUTION, new Ability(AbilityType.CONSTITUTION));
-//	abilities.put(AbilityType.INTELLIGENCE, new Ability(AbilityType.INTELLIGENCE));
-//	abilities.put(AbilityType.WISDOM, new Abili
 	@Test
 	public void shouldBeAbleToSetTheCharactersDexterity() {
 		character.setDexterity(12);
@@ -222,6 +216,25 @@ public class CharacterTest {
 		character.setWisdom(7);
 		
 		assertEquals(7, character.getAbility(AbilityType.WISDOM).getScore());
+	}
+	
+	@Test
+	public void shouldHaveZeroExperienceWhenCharacterIsCreated() {
+		assertEquals(0, character.getExperiencePoints());
+	}
+	
+	@Test
+	public void shouldGainTenExperiencePointsWhenAttackIsSuccessful() {
+		character.attack(combatant, 14);
+		
+		assertEquals(10, character.getExperiencePoints());
+	}
+	
+	@Test
+	public void shouldNotGainExperiencePointsWhenAttackIsUnsuccessful() {
+		character.attack(combatant, 6);
+		
+		assertEquals(0, character.getExperiencePoints());
 	}
 	
 }

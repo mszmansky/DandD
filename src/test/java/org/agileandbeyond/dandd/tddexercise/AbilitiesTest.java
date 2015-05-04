@@ -39,12 +39,12 @@ public class AbilitiesTest {
 	}
 	
 	@Test
-	public void abilityModifierSHouldBeCorrectWhenScoreIsNineteen() {
+	public void abilityModifierShouldBeCorrectWhenScoreIsNineteen() {
 		Ability ability = new Ability(19);
 		assertEquals(4, ability.getModifier());
 	}
 	@Test
-	public void abilityModifierSHouldBeCorrectWhenScoreIs1() {
+	public void abilityModifierShouldBeCorrectWhenScoreIs1() {
 		Ability ability = new Ability(1);
 		assertEquals(-5, ability.getModifier());
 	}

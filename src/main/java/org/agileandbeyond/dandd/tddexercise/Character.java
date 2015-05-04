@@ -3,17 +3,18 @@ package org.agileandbeyond.dandd.tddexercise;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DandDCharacter {
+public class Character {
 	
 	private static int CRITICAL_HIT = 20;
 	
 	private String name;
 	private Alignment alignment;
+	private int experiencePoints;
 	private int armorClass = 10;
 	private int hitPoints = 5;
 	private Map<AbilityType, Ability> abilities;
 
-	public DandDCharacter() {
+	public Character() {
 		abilities = new HashMap<AbilityType, Ability>();
 		abilities.put(AbilityType.STRENGTH, new Ability(AbilityType.STRENGTH));
 		abilities.put(AbilityType.DEXTERITY, new Ability(AbilityType.DEXTERITY));
@@ -64,25 +65,6 @@ public class DandDCharacter {
 		this.hitPoints = hitPoints;
 	}
 
-	public boolean attack(DandDCharacter combatant, int attackRoll) {
-		boolean hit = false;
-		int damage = 1;
-		
-		if (attackRoll >= combatant.getArmorClass()) {
-			hit = true;
-			if (attackRoll == CRITICAL_HIT) {
-				damage = damage * 2;
-			}
-			combatant.setHitPoints(combatant.getHitPoints()-damage);
-		}
-		
-		return hit;
-	}
-
-	public boolean isDead() {
-		return hitPoints <= 0;
-	}
-
 	public Ability getAbility(AbilityType abilityType) {
 		return abilities.get(abilityType);
 	}
@@ -113,6 +95,30 @@ public class DandDCharacter {
 
 	public void setWisdom(int score) {
 		abilities.get(AbilityType.WISDOM).setScore(score);
+	}
+
+	public Object getExperiencePoints() {
+		return experiencePoints;
+	}	
+
+	public boolean isDead() {
+		return hitPoints <= 0;
+	}
+	
+	public boolean attack(Character combatant, int attackRoll) {
+		boolean hit = false;
+		int damage = 1;
+		
+		if (attackRoll >= combatant.getArmorClass()) {
+			hit = true;
+			experiencePoints+=10;
+			if (attackRoll == CRITICAL_HIT) {
+				damage = damage * 2;
+			}
+			combatant.setHitPoints(combatant.getHitPoints()-damage);
+		}
+		
+		return hit;
 	}
 
 }
