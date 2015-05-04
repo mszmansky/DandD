@@ -5,14 +5,16 @@ import java.util.Map;
 
 public class Character {
 	
-	private static int CRITICAL_HIT = 20;
+	public static int CRITICAL_HIT = 20;
 	
 	private String name;
 	private Alignment alignment;
-	private int experiencePoints;
+	private int experiencePoints = 0;
 	private int armorClass = 10;
 	private int hitPoints = 5;
 	private Map<AbilityType, Ability> abilities;
+	private Weapon weapon;
+
 
 	public Character() {
 		abilities = new HashMap<AbilityType, Ability>();
@@ -107,18 +109,41 @@ public class Character {
 	
 	public boolean attack(Character combatant, int attackRoll) {
 		boolean hit = false;
-		int damage = 1;
+		
+		if (weapon != null) {
+			attackRoll = attackRoll + weapon.getAttackModifier();
+		}
 		
 		if (attackRoll >= combatant.getArmorClass()) {
 			hit = true;
 			experiencePoints+=10;
-			if (attackRoll == CRITICAL_HIT) {
-				damage = damage * 2;
-			}
-			combatant.setHitPoints(combatant.getHitPoints()-damage);
+			
+			combatant.setHitPoints(combatant.getHitPoints()-calculateDamage(attackRoll));
 		}
 		
 		return hit;
 	}
+	
+	private int calculateDamage(int attackRoll) {
+		int damage = 1;
+		
+		if (attackRoll >= CRITICAL_HIT) {
+			damage = damage * 2;
+		}
+		
+		if (weapon != null) {
+			damage = damage + weapon.getDamageModifier();
+		}
+		
+		return damage;
+	}
+	
 
+	public Weapon getWeapon() {
+		return weapon;
+	}
+
+	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
 }
