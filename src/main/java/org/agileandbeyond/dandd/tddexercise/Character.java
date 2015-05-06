@@ -14,7 +14,7 @@ public class Character {
 	private int hitPoints = 5;
 	private Map<AbilityType, Ability> abilities;
 	private Weapon weapon;
-
+	private CharacterClass characterClass;
 
 	public Character() {
 		abilities = new HashMap<AbilityType, Ability>();
@@ -145,5 +145,13 @@ public class Character {
 
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
+	}
+
+	public void setCharacterClass(CharacterClass characterClass) {
+		this.characterClass = characterClass;
+	}
+	
+	public CharacterClass getCharacterClass() {
+		return this.characterClass;
 	}
 }

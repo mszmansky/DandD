@@ -1,11 +1,6 @@
 package org.agileandbeyond.dandd.tddexercise;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Map;
 
@@ -261,5 +256,28 @@ public class CharacterTest {
 		Weapon weapon = character.getWeapon();
 		assertSame(weapon, dagger);
 	}
-	
+
+	@Test
+	public void willSetTheCharacterClassToPaladin() throws Exception {
+		character.setCharacterClass(CharacterClass.PALADIN);
+		assertTrue("Character's class should be PALADIN", CharacterClass.PALADIN.equals(character.getCharacterClass()));
+	}
+
+	@Test
+	public void willSetTheCharacterClassToRogue() throws Exception {
+		character.setCharacterClass(CharacterClass.ROGUE);
+		assertTrue("Character's class should be Rogue", CharacterClass.ROGUE.equals(character.getCharacterClass()));
+	}
+
+	@Test
+	public void willSetTheCharacterClassToWarMonk() throws Exception {
+		character.setCharacterClass(CharacterClass.WAR_MONK);
+		assertTrue("Character's class should be Rogue", CharacterClass.WAR_MONK.equals(character.getCharacterClass()));
+	}
+
+	@Test
+	public void willSetTheCharacterClassToFighter() throws Exception {
+		character.setCharacterClass(CharacterClass.FIGHTER);
+		assertTrue("Character's class should be Rogue", CharacterClass.FIGHTER.equals(character.getCharacterClass()));
+	}
 }
