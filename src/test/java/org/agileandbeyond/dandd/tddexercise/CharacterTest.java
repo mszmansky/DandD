@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Map;
@@ -243,6 +244,22 @@ public class CharacterTest {
 		character.attack(combatant, 6);
 		
 		assertEquals(0, character.getExperiencePoints());
+	}
+	
+	@Test
+	public void shouldHaveWeaponSetToNullByDefault() {
+		assertNull(character.getWeapon());
+	}
+	
+	@Test
+	public void shouldHaveWeaponSetToTheSameWhenSet() {
+		Weapon dagger = new Weapon();
+		dagger.setName("Dagger");
+		dagger.setAttackModifier(1);
+		character.setWeapon(dagger);
+		
+		Weapon weapon = character.getWeapon();
+		assertSame(weapon, dagger);
 	}
 	
 }
