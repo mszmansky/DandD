@@ -22,7 +22,7 @@ public class CharacterTest {
 		character = new Character();
 		combatant = new Character();
 	}
-
+	
 	@Test
 	public void shouldReturnNullNameWhenNotSet() {
 		assertNull(character.getName());
@@ -262,4 +262,14 @@ public class CharacterTest {
 		assertSame(weapon, dagger);
 	}
 	
+	@Test
+	public void shouldGetOrcRaceWhenRaceSetToOrc() {
+		Race race = new Race();
+		RaceType raceType = RaceType.ORC;
+		
+		race.setRaceType(raceType);
+		character.setRace(race);
+		
+		assertEquals(character.getRace().getRaceType(), RaceType.ORC);
+	}
 }
