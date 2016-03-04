@@ -84,6 +84,29 @@ public class WeaponTest {
 		assertEquals(2, monster.getHitPoints());
 	}
 	
+	@Test
+	public void shouldHoldADaggerWithOneHand() {
+		Weapon dagger = createDagger();
+		assertFalse(dagger.isTwoHanded());
+	}
+	
+	@Test
+	public void shouldHoldALongSwordWithTwoHands() {
+		Weapon sword = createLongSword();
+		assertTrue(sword.isTwoHanded());
+	}
+	
+	
+	private Weapon createLongSword() {
+		Weapon weapon = new Weapon();
+		
+		weapon.setName("Long Sword");
+		weapon.setAttackModifier(5);
+		weapon.setDamageModifier(5);
+		weapon.setTwoHanded(true);
+		
+		return weapon;
+	}
 	
 	private Weapon createDagger() {
 		Weapon weapon = new Weapon();
@@ -91,6 +114,7 @@ public class WeaponTest {
 		weapon.setName("Dagger");
 		weapon.setAttackModifier(1);
 		weapon.setDamageModifier(1);
+		weapon.setTwoHanded(false);
 		
 		return weapon;
 	}
