@@ -14,6 +14,7 @@ public class Character {
 	private int hitPoints = 5;
 	private Map<AbilityType, Ability> abilities;
 	private Weapon weapon;
+	private ArmorSet armorSet;
 
 
 	public Character() {
@@ -24,8 +25,45 @@ public class Character {
 		abilities.put(AbilityType.CONSTITUTION, new Ability(AbilityType.CONSTITUTION));
 		abilities.put(AbilityType.INTELLIGENCE, new Ability(AbilityType.INTELLIGENCE));
 		abilities.put(AbilityType.WISDOM, new Ability(AbilityType.WISDOM));
+		armorSet = new ArmorSet();
 	}
 	
+	public void donArmor(Armor armor) {
+		WearablePosition position = armor.getPosition();
+		
+		if (position.equals(WearablePosition.HEAD)) {
+			this.armorSet.setHelmet(armor);
+		} else if (position.equals(WearablePosition.TORSO)) {
+			this.armorSet.setMail(armor);
+		} else if (position.equals(WearablePosition.WRISTS)) {
+			this.armorSet.setGauntlets(armor);
+		} else if (position.equals(WearablePosition.FEET)) {
+			this.armorSet.setBoots(armor);
+		} else {
+			
+		}
+		this.armorClass += armor.getArmorClassModifier();
+	}
+	
+	public void useShield(Shield shield) {
+		
+	}
+	
+	public boolean isWearingHelmet() {
+		boolean wearingHelmet = false;
+		if (this.armorSet.helmet != null) {
+			wearingHelmet = true;
+		}
+		return wearingHelmet;
+	}
+	
+	public boolean isWearingMail() {
+		boolean wearingMail = false;
+		if (this.armorSet.mail != null) {
+			wearingMail = true;
+		}
+		return wearingMail;
+	}
 	public Alignment getAlignment() {
 		return alignment;
 	}
@@ -145,5 +183,31 @@ public class Character {
 
 	public void setWeapon(Weapon weapon) {
 		this.weapon = weapon;
+	}
+	
+	private class ArmorSet {
+		private Armor mail;
+		private Armor helmet;
+		private Armor boots;
+		private Armor gauntlets;
+		private Shield shield;
+		
+		public void setMail(Armor mail) {
+			this.mail = mail;
+		}
+		public void setHelmet(Armor helmet) {
+			this.helmet = helmet;
+		}
+		public void setBoots(Armor boots) {
+			this.boots = boots;
+		}
+		public void setGauntlets(Armor gauntlets) {
+			this.gauntlets = gauntlets;
+		}
+		public void setShield(Shield shield) {
+			this.shield = shield;
+		}
+		
+		
 	}
 }
