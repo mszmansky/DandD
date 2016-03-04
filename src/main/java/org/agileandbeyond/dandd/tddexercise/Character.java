@@ -7,6 +7,14 @@ public class Character {
 	
 	public static int CRITICAL_HIT = 20;
 	
+	public Race getRace() {
+		return race;
+	}
+
+	public void setRace(Race race) {
+		this.race = race;
+	}
+
 	private String name;
 	private Alignment alignment;
 	private int experiencePoints = 0;
@@ -14,6 +22,7 @@ public class Character {
 	private int hitPoints = 5;
 	private Map<AbilityType, Ability> abilities;
 	private Weapon weapon;
+	private Race race;
 
 
 	public Character() {
