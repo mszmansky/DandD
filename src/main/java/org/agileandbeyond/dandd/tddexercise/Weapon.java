@@ -5,6 +5,7 @@ public class Weapon {
 	private String name;
 	private int attackModifier;
 	private int damageModifier;
+	private boolean twoHanded = false;
 
 	public int getDamageModifier() {
 		return damageModifier;
@@ -28,6 +29,14 @@ public class Weapon {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public boolean isTwoHanded() {
+		return twoHanded;
+	}
+
+	public void setTwoHanded(boolean twoHanded) {
+		this.twoHanded = twoHanded;
 	}
 	
 	
