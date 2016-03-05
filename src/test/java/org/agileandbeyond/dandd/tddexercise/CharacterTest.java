@@ -1,11 +1,6 @@
 package org.agileandbeyond.dandd.tddexercise;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import java.util.Map;
 
@@ -252,11 +247,11 @@ public class CharacterTest {
 	}
 	
 	@Test
-	public void shouldHaveWeaponSetToTheSameWhenSet() {
+	public void shouldHaveWeaponSetToTheSameWhenSet() throws Exception {
 		Weapon dagger = new Weapon();
 		dagger.setName("Dagger");
 		dagger.setAttackModifier(1);
-		character.setWeapon(dagger);
+		character.wieldWeapon(dagger);
 		
 		Weapon weapon = character.getWeapon();
 		assertSame(weapon, dagger);

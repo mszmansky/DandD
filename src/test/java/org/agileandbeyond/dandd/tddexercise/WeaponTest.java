@@ -38,10 +38,10 @@ public class WeaponTest {
 	}
 	
 	@Test
-	public void shouldHitArmorClassOfTwoWhenUsingDagger() {
+	public void shouldHitArmorClassOfTwoWhenUsingDagger() throws Exception {
 		
 		Character blorhoff = new Character();
-		blorhoff.setWeapon(createDagger());
+		blorhoff.wieldWeapon(createDagger());
 		Character monster = new Character();
 		monster.setArmorClass(2);
 		
@@ -50,9 +50,9 @@ public class WeaponTest {
 	}
 	
 	@Test
-	public void shouldNotHitArmorClassOfThreeWhenUsingDagger() {
+	public void shouldNotHitArmorClassOfThreeWhenUsingDagger() throws CannotUseWeaponException {
 		Character blorhoff = new Character();
-		blorhoff.setWeapon(createDagger());
+		blorhoff.wieldWeapon(createDagger());
 		Character monster = new Character();
 		monster.setArmorClass(3);
 		
@@ -61,9 +61,9 @@ public class WeaponTest {
 	}
 	
 	@Test
-	public void shouldIncreaseDamageByOneWhenUsingDagger() {
+	public void shouldIncreaseDamageByOneWhenUsingDagger() throws CannotUseWeaponException {
 		Character blorhoff = new Character();
-		blorhoff.setWeapon(createDagger());
+		blorhoff.wieldWeapon(createDagger());
 		Character monster = new Character();
 		monster.setArmorClass(2);
 		
@@ -73,9 +73,9 @@ public class WeaponTest {
 	}
 	
 	@Test
-	public void shouldIncreaseDamageByTwoWhenUsingDaggerAndCriticalHit() {
+	public void shouldIncreaseDamageByTwoWhenUsingDaggerAndCriticalHit() throws Exception {
 		Character blorhoff = new Character();
-		blorhoff.setWeapon(createDagger());
+		blorhoff.wieldWeapon(createDagger());
 		Character monster = new Character();
 		monster.setArmorClass(2);
 		
