@@ -16,7 +16,6 @@ public class Character {
 	private Weapon weapon;
 	private ArmorSet armorSet;
 
-
 	public Character() {
 		abilities = new HashMap<AbilityType, Ability>();
 		abilities.put(AbilityType.STRENGTH, new Ability(AbilityType.STRENGTH));
@@ -31,16 +30,21 @@ public class Character {
 	public void donArmor(Armor armor) {
 		WearablePosition position = armor.getPosition();
 		
-		if (position.equals(WearablePosition.HEAD)) {
+		switch (position) {
+		case HEAD:
 			this.armorSet.setHelmet(armor);
-		} else if (position.equals(WearablePosition.TORSO)) {
+			break;
+		case TORSO:
 			this.armorSet.setMail(armor);
-		} else if (position.equals(WearablePosition.WRISTS)) {
+			break;
+		case WRISTS:
 			this.armorSet.setGauntlets(armor);
-		} else if (position.equals(WearablePosition.FEET)) {
+			break;
+		case FEET:
 			this.armorSet.setBoots(armor);
-		} else {
-			
+			break;
+		default:
+			break;
 		}
 		this.armorClass += armor.getArmorClassModifier();
 	}
@@ -64,6 +68,24 @@ public class Character {
 		}
 		return wearingMail;
 	}
+	
+	public boolean isWearingGauntlets() {
+		boolean wearingGauntlets = false;
+		if (this.armorSet.gauntlets != null) {
+			wearingGauntlets = true;
+		}
+		return wearingGauntlets;
+	}
+	
+	public boolean isWearingBoots() {
+		boolean wearingBoots = false;
+		if (this.armorSet.boots != null) {
+			wearingBoots = true;
+		}
+		return wearingBoots;
+	}
+	
+	
 	public Alignment getAlignment() {
 		return alignment;
 	}
