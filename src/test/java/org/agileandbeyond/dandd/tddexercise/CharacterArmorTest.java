@@ -71,6 +71,30 @@ public class CharacterArmorTest {
 		assertFalse(grog.isWearingBoots());
 	}
 	
+	@Test
+	public void shouldUseShieldAndIncreaseArmorClassByFour() {
+		int armorClassBefore = grog.getArmorClass();
+		grog.useShield(createShield());
+		
+		assertEquals(4, Math.abs(armorClassBefore - grog.getArmorClass()));
+	}
+	
+	@Test
+	public void shouldUseShieldAndBlockDeadlyBlows() {
+		grog.useShield(createShield());
+		
+		assertTrue(grog.isUsingShield());
+	}
+	
+	@Test
+	public void shouldNotHaveShieldOutOfTheBox(){
+		assertFalse(grog.isUsingShield());
+	}
+	
+	private Shield createShield(){
+		Shield shield = new Shield();
+		return shield;
+	}
 	
 	private Armor createHelmet() {
 		Helmet helmet = new Helmet();

@@ -50,7 +50,16 @@ public class Character {
 	}
 	
 	public void useShield(Shield shield) {
-		
+		this.armorSet.setShield(shield);
+		this.armorClass += shield.getArmorClassModifier();
+	}
+	
+	public boolean isUsingShield() {
+		boolean usingShield = false;
+		if (this.armorSet.shield != null) {
+			usingShield = true;
+		}
+		return usingShield;
 	}
 	
 	public boolean isWearingHelmet() {

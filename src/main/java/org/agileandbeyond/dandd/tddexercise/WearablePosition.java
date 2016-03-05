@@ -9,5 +9,6 @@ public enum WearablePosition {
 	WRISTS,
 	HANDS,
 	FINGERS,
-	FEET
+	FEET,
+	SHIELD
 }
