@@ -72,7 +72,7 @@ public class CharacterArmorTest {
 	}
 	
 	@Test
-	public void shouldUseShieldAndIncreaseArmorClassByFour() {
+	public void shouldUseShieldAndIncreaseArmorClassByFour() throws Exception {
 		int armorClassBefore = grog.getArmorClass();
 		grog.useShield(createShield());
 		
@@ -80,7 +80,7 @@ public class CharacterArmorTest {
 	}
 	
 	@Test
-	public void shouldUseShieldAndBlockDeadlyBlows() {
+	public void shouldUseShieldAndBlockDeadlyBlows() throws Exception {
 		grog.useShield(createShield());
 		
 		assertTrue(grog.isUsingShield());
@@ -89,6 +89,32 @@ public class CharacterArmorTest {
 	@Test
 	public void shouldNotHaveShieldOutOfTheBox(){
 		assertFalse(grog.isUsingShield());
+	}
+	
+	@Test(expected = CannotUseShieldException.class)
+	public void shouldNotBeAbleToUseShieldWhenWieldingTwoHandedBroadSword() throws Exception{
+		grog.wieldWeapon(createBroadSword());
+		grog.useShield(createShield());
+	}
+	
+	@Test(expected = CannotUseWeaponException.class)
+	public void shouldNotBeAbleToWieldTwoHandedBroadSwordWhenUsingShield() throws Exception {
+		grog.useShield(createShield());
+		grog.wieldWeapon(createBroadSword());
+	}
+	
+	@Test
+	public void shouldBeAbleToWieldDaggerWhenUsingShield() throws Exception {
+		grog.useShield(createShield());
+		Weapon dagger = new Dagger();
+		grog.wieldWeapon(dagger);
+		
+		assertSame(dagger, grog.getWeapon());
+	}
+	
+	private Weapon createBroadSword(){
+		Weapon broadSword = new BroadSword();
+		return broadSword;
 	}
 	
 	private Shield createShield(){

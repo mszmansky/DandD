@@ -49,7 +49,12 @@ public class Character {
 		this.armorClass += armor.getArmorClassModifier();
 	}
 	
-	public void useShield(Shield shield) {
+	public void useShield(Shield shield) throws Exception{
+		if (this.getWeapon() != null) {
+			if (this.getWeapon().isTwoHanded()) {
+				throw new CannotUseShieldException();
+			}
+		}
 		this.armorSet.setShield(shield);
 		this.armorClass += shield.getArmorClassModifier();
 	}
@@ -212,7 +217,12 @@ public class Character {
 		return weapon;
 	}
 
-	public void setWeapon(Weapon weapon) {
+	public void wieldWeapon(Weapon weapon) throws CannotUseWeaponException {
+		if (this.armorSet.shield != null) {
+			if (weapon.isTwoHanded()) {
+				throw new CannotUseWeaponException();
+			}
+		}
 		this.weapon = weapon;
 	}
 	
