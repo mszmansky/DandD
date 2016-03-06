@@ -248,9 +248,7 @@ public class CharacterTest {
 	
 	@Test
 	public void shouldHaveWeaponSetToTheSameWhenSet() throws Exception {
-		Weapon dagger = new Weapon();
-		dagger.setName("Dagger");
-		dagger.setAttackModifier(1);
+		Weapon dagger = new Dagger();
 		character.wieldWeapon(dagger);
 		
 		Weapon weapon = character.getWeapon();
