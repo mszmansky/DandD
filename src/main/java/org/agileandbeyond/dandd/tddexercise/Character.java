@@ -3,17 +3,12 @@ package org.agileandbeyond.dandd.tddexercise;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.agileandbeyond.dandd.tddexercise.races.Human;
+import org.agileandbeyond.dandd.tddexercise.races.Race;
+
 public class Character {
 	
 	public static int CRITICAL_HIT = 20;
-	
-	public Race getRace() {
-		return race;
-	}
-
-	public void setRace(Race race) {
-		this.race = race;
-	}
 
 	private String name;
 	private Alignment alignment;
@@ -33,6 +28,17 @@ public class Character {
 		abilities.put(AbilityType.CONSTITUTION, new Ability(AbilityType.CONSTITUTION));
 		abilities.put(AbilityType.INTELLIGENCE, new Ability(AbilityType.INTELLIGENCE));
 		abilities.put(AbilityType.WISDOM, new Ability(AbilityType.WISDOM));
+		
+		//Default Character race to Human
+		race = new Human();
+	}
+	
+	public Race getRace() {
+		return race;
+	}
+
+	public void setRace(Race race) {
+		this.race = race;
 	}
 	
 	public Alignment getAlignment() {

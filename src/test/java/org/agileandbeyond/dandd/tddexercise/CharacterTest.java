@@ -263,13 +263,8 @@ public class CharacterTest {
 	}
 	
 	@Test
-	public void shouldGetOrcRaceWhenRaceSetToOrc() {
-		Race race = new Race();
-		RaceType raceType = RaceType.ORC;
-		
-		race.setRaceType(raceType);
-		character.setRace(race);
-		
-		assertEquals(character.getRace().getRaceType(), RaceType.ORC);
+	public void shouldInitiateCharacterRaceAsHuman() {
+		assertEquals(character.getRace().getName(),RaceType.HUMAN);
 	}
+	
 }
