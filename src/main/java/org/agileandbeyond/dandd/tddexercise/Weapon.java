@@ -1,10 +1,10 @@
 package org.agileandbeyond.dandd.tddexercise;
 
-public class Weapon {
+public class Weapon extends Equipment{
 
-	private String name;
 	private int attackModifier;
 	private int damageModifier;
+	private boolean twoHanded = false;
 
 	public int getDamageModifier() {
 		return damageModifier;
@@ -22,12 +22,12 @@ public class Weapon {
 		this.attackModifier = attackModifier;
 	}
 
-	public String getName() {
-		return name;
+	public boolean isTwoHanded() {
+		return twoHanded;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setTwoHanded(boolean twoHanded) {
+		this.twoHanded = twoHanded;
 	}
 	
 	

@@ -38,10 +38,10 @@ public class WeaponTest {
 	}
 	
 	@Test
-	public void shouldHitArmorClassOfTwoWhenUsingDagger() {
+	public void shouldHitArmorClassOfTwoWhenUsingDagger() throws Exception {
 		
 		Character blorhoff = new Character();
-		blorhoff.setWeapon(createDagger());
+		blorhoff.wieldWeapon(createDagger());
 		Character monster = new Character();
 		monster.setArmorClass(2);
 		
@@ -50,9 +50,9 @@ public class WeaponTest {
 	}
 	
 	@Test
-	public void shouldNotHitArmorClassOfThreeWhenUsingDagger() {
+	public void shouldNotHitArmorClassOfThreeWhenUsingDagger() throws CannotUseWeaponException {
 		Character blorhoff = new Character();
-		blorhoff.setWeapon(createDagger());
+		blorhoff.wieldWeapon(createDagger());
 		Character monster = new Character();
 		monster.setArmorClass(3);
 		
@@ -61,9 +61,9 @@ public class WeaponTest {
 	}
 	
 	@Test
-	public void shouldIncreaseDamageByOneWhenUsingDagger() {
+	public void shouldIncreaseDamageByOneWhenUsingDagger() throws CannotUseWeaponException {
 		Character blorhoff = new Character();
-		blorhoff.setWeapon(createDagger());
+		blorhoff.wieldWeapon(createDagger());
 		Character monster = new Character();
 		monster.setArmorClass(2);
 		
@@ -73,9 +73,9 @@ public class WeaponTest {
 	}
 	
 	@Test
-	public void shouldIncreaseDamageByTwoWhenUsingDaggerAndCriticalHit() {
+	public void shouldIncreaseDamageByTwoWhenUsingDaggerAndCriticalHit() throws Exception {
 		Character blorhoff = new Character();
-		blorhoff.setWeapon(createDagger());
+		blorhoff.wieldWeapon(createDagger());
 		Character monster = new Character();
 		monster.setArmorClass(2);
 		
@@ -84,6 +84,29 @@ public class WeaponTest {
 		assertEquals(2, monster.getHitPoints());
 	}
 	
+	@Test
+	public void shouldHoldADaggerWithOneHand() {
+		Weapon dagger = createDagger();
+		assertFalse(dagger.isTwoHanded());
+	}
+	
+	@Test
+	public void shouldHoldALongSwordWithTwoHands() {
+		Weapon sword = createLongSword();
+		assertTrue(sword.isTwoHanded());
+	}
+	
+	
+	private Weapon createLongSword() {
+		Weapon weapon = new Weapon();
+		
+		weapon.setName("Long Sword");
+		weapon.setAttackModifier(5);
+		weapon.setDamageModifier(5);
+		weapon.setTwoHanded(true);
+		
+		return weapon;
+	}
 	
 	private Weapon createDagger() {
 		Weapon weapon = new Weapon();
@@ -91,6 +114,7 @@ public class WeaponTest {
 		weapon.setName("Dagger");
 		weapon.setAttackModifier(1);
 		weapon.setDamageModifier(1);
+		weapon.setTwoHanded(false);
 		
 		return weapon;
 	}
