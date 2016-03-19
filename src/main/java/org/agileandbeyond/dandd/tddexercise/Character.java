@@ -15,6 +15,7 @@ public class Character {
 	private Map<AbilityType, Ability> abilities;
 	private Weapon weapon;
 	private ArmorSet armorSet;
+	private Race race;
 
 	public Character() {
 		abilities = new HashMap<AbilityType, Ability>();
@@ -250,5 +251,13 @@ public class Character {
 		}
 		
 		
+	}
+
+	public Race getRace() {
+		return race;
+	}
+
+	public void setRace(Race race) {
+		this.race = race;
 	}
 }

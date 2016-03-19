@@ -255,4 +255,33 @@ public class CharacterTest {
 		assertSame(weapon, dagger);
 	}
 	
+	@Test
+	public void shouldGetCorrectValuesForAllHumanAttributes() {
+		Human human = new Human();
+		character.setRace(human);
+		
+		assertEquals(RaceType.HUMAN, character.getRace().getRaceType());
+		assertEquals(0, character.getRace().getArmorClassModifier());
+		assertEquals(0, character.getRace().getStrengthModifier());
+		assertEquals(0, character.getRace().getDexterityModifier());
+		assertEquals(0, character.getRace().getConstitutionModifier());
+		assertEquals(0, character.getRace().getWisdomModifier());
+		assertEquals(0, character.getRace().getIntelligenceModifier());
+		assertEquals(0, character.getRace().getCharismaModifier());
+	}
+	
+	@Test
+	public void shouldGetCorrectValuesForAllOrcAttributes() {
+		Orc orc = new Orc();
+		character.setRace(orc);
+		
+		assertEquals(RaceType.ORC, character.getRace().getRaceType());
+		assertEquals(2, character.getRace().getArmorClassModifier());
+		assertEquals(2, character.getRace().getStrengthModifier());
+		assertEquals(0, character.getRace().getDexterityModifier());
+		assertEquals(0, character.getRace().getConstitutionModifier());
+		assertEquals(-1, character.getRace().getWisdomModifier());
+		assertEquals(-1, character.getRace().getIntelligenceModifier());
+		assertEquals(-1, character.getRace().getCharismaModifier());
+	}
 }
