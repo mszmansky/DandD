@@ -16,6 +16,7 @@ public class Character {
 	private Weapon weapon;
 	private ArmorSet armorSet;
 	private Race race;
+	private Purse purse;
 
 	public Character() {
 		abilities = new HashMap<AbilityType, Ability>();
@@ -26,6 +27,7 @@ public class Character {
 		abilities.put(AbilityType.INTELLIGENCE, new Ability(AbilityType.INTELLIGENCE));
 		abilities.put(AbilityType.WISDOM, new Ability(AbilityType.WISDOM));
 		armorSet = new ArmorSet();
+		setPurse(new Purse());
 	}
 	
 	public void donArmor(Armor armor) {
@@ -260,4 +262,13 @@ public class Character {
 	public void setRace(Race race) {
 		this.race = race;
 	}
+
+	public Purse getPurse() {
+		return purse;
+	}
+
+	public void setPurse(Purse purse) {
+		this.purse = purse;
+	}
+	
 }
