@@ -8,6 +8,7 @@ import java.util.regex.Pattern;
 
 public class DiceRollCup {
 
+	private static final String DICE_PATTERN = "(\\d*)(d)(\\d+)";
 	private Set<Die> diceCup;
 	private int diceCount;
 	private int value;
@@ -17,7 +18,7 @@ public class DiceRollCup {
 	}
 	
 	public DiceRollCup(String diceNotation) {
-		Pattern pattern = Pattern.compile("(\\d*)(d)(\\d+)");
+		Pattern pattern = Pattern.compile(DICE_PATTERN);
 		Matcher m = pattern.matcher(diceNotation);
 		int numberOfDice = 1;
 		int sides = 0;
@@ -37,11 +38,13 @@ public class DiceRollCup {
 	
 	public DiceRollCup(List<Die> dice){
 		for (Die die : dice) {
-			diceCup.add(die);
+			addDieToCup(die);
 		}
 	}
 	
+	
 	public void throwDice() {
+		shake();
 		for (Die die : diceCup) {
 			die.roll();
 			value += die.getValue();
@@ -69,8 +72,21 @@ public class DiceRollCup {
 		return diceCount;
 	}
 	
+	public Set<Die> getDice() {
+		return diceCup;
+	}
+	
+	
+	
+	
 	private void addDieToCup(Die die) {
 		diceCup.add(die);
 		this.diceCount++;
+	}
+	
+	private void shake() {
+		for (Die die : diceCup) {
+			die.roll();
+		}
 	}
 }

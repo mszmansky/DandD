@@ -20,7 +20,7 @@ public class DiceTest {
 		Die d10 = new Die(10);
 		d10.roll();
 		
-		assertTrue(d10.getValue() >= 1 && d10.getValue() <=10);
+		assertTrue(d10.getValue() >= 0 && d10.getValue() <=9);
 	}
 	
 	@Test
@@ -107,7 +107,7 @@ public class DiceTest {
 		DiceRollCup diceCup = new DiceRollCup("d10");
 		assertEquals(1, diceCup.getDiceCount());
 		diceCup.throwDice();
-		assertTrue(diceCup.getValue() >= 1 && diceCup.getValue() <= 10);
+		assertTrue(diceCup.getValue() >= 0 && diceCup.getValue() <= 9);
 	}
 	
 	@Test(expected=IllegalArgumentException.class)
@@ -120,7 +120,7 @@ public class DiceTest {
 		DiceRollCup diceCup = new DiceRollCup("2d10");
 		assertEquals(2, diceCup.getDiceCount());
 		diceCup.throwDice();
-		assertTrue(diceCup.getValue() >= 2 && diceCup.getValue() <= 20);
+		assertTrue(diceCup.getValue() >= 0 && diceCup.getValue() <= 18);
 	}
 	
 	@Test
@@ -130,6 +130,38 @@ public class DiceTest {
 		diceCup.throwDice();
 		assertTrue(diceCup.getValue() >= 1 && diceCup.getValue() <= 100);
 		System.out.println(diceCup.toString() + "%");
+	}
+	
+	@Test
+	public void shouldGetTheDiceInTheCup() {
+		DiceRollCup diceCup = new DiceRollCup();
+		Die d10 = new Die(10);
+		diceCup.addDie(d10);
+		
+		assertTrue(diceCup.getDice().contains(d10));
+	}
+	
+	@Test
+	public void shouldGetTheCorrectDesignatedDice() {
+		Die tensDigit = new Die(10, "tens");
+		Die onesDigit = new Die(10, "ones");
+		int tens = 0;
+		int ones = 0;
+		
+		DiceRollCup cup = new DiceRollCup();
+		cup.addDie(tensDigit);
+		cup.addDie(onesDigit);
+		cup.throwDice();
+		for (Die die : cup.getDice()) {
+			if (die.getDesignator().equals("tens")) {
+				tens = die.getValue() * 10;
+			} else {
+				ones = die.getValue();
+			}
+		}
+		int percent = tens + ones;
+		
+		assertTrue(percent >= 1 && percent <= 100);
 	}
 	
 }
