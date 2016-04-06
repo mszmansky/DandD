@@ -19,6 +19,8 @@ public class Character {
 	private int experiencePoints = 0;
 	private int armorClass = 10;
 	private int hitPoints = 5;
+	private int level = 1;
+	private int attackRollLevelBonus;
 	private Map<AbilityType, Ability> abilities;
 	private Weapon weapon;
 	private ArmorSet armorSet;
@@ -198,7 +200,7 @@ public class Character {
 		
 		if (attackRoll >= combatant.getArmorClass()) {
 			hit = true;
-			experiencePoints+=10;
+			increaseExperiencePoints(10);
 			
 			combatant.setHitPoints(combatant.getHitPoints()-calculateDamage(attackRoll));
 		}
@@ -209,12 +211,12 @@ public class Character {
 	private int calculateDamage(int attackRoll) {
 		int damage = 1;
 		
-		if (attackRoll >= CRITICAL_HIT) {
-			damage = damage * 2;
-		}
-		
 		if (weapon != null) {
 			damage = damage + weapon.getDamageModifier();
+		}
+		
+		if (attackRoll >= CRITICAL_HIT) {
+			damage = damage * 2;
 		}
 		
 		return damage;
@@ -233,6 +235,36 @@ public class Character {
 		}
 		this.weapon = weapon;
 	}
+	
+	protected void increaseHitPoints(int increase) {
+		hitPoints+=increase;
+	}
+
+	protected void increaseLevel(int increase) {
+		level+=increase;
+		
+		int increaseHitPointsBy = increase*5 + getAbility(AbilityType.CONSTITUTION).getModifier();
+		increaseHitPoints(increaseHitPointsBy);
+		
+		this.attackRollLevelBonus = (level/2);
+	}
+	
+	protected void increaseExperiencePoints(int increase) {
+		int currentLevel = this.level;
+		
+		experiencePoints+=increase;
+		
+		int newLevel = (experiencePoints/1000)+1;
+		if (newLevel > currentLevel) {
+			int increaseLevelBy = newLevel - level;
+			increaseLevel(increaseLevelBy);
+		}
+	}
+	
+	public int getAttackRollLevelBonus() {
+		return attackRollLevelBonus;
+	}
+
 	
 	private class ArmorSet {
 		private Armor mail;
@@ -266,5 +298,13 @@ public class Character {
 
 	public void setRace(Race race) {
 		this.race = race;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	}
 }

@@ -248,6 +248,79 @@ public class CharacterTest {
 	}
 	
 	@Test
+	public void shouldHaveALevelOfOneWhenCharacterIsCreated() {
+		assertEquals(1, character.getLevel());
+	}
+	
+	@Test
+	public void shouldHaveALevelOfTwoWhenCharacterReaches1000ExperiencePoints() {
+		character.increaseExperiencePoints(1000);
+		
+		assertEquals(2, character.getLevel());
+	}
+	
+	@Test
+	public void shouldHaveALevelOfThreeWhenCharacterReaches2000ExperiencePoints() {
+		character.increaseExperiencePoints(2000);
+		
+		assertEquals(3, character.getLevel());
+	}
+	
+	@Test
+	public void shouldHaveALevelOfThreeWhenCharacterReaches2999ExperiencePoints() {
+		character.increaseExperiencePoints(2999);
+		
+		assertEquals(3, character.getLevel());
+	}
+	
+	@Test
+	public void shouldIncreaseHitPointsByFiveWhenConstitutionModifierIsZeroAndLevelIncreases() {
+		character.increaseLevel(1);
+		
+		assertEquals(10, character.getHitPoints());
+	}
+	
+	@Test
+	public void shouldIncreaseHitPointsByNineWhenConstitutionModifierIsPlusFourAndLevelIncreases() {
+		character.setConstitution(18);
+		character.increaseLevel(1);
+		
+		assertEquals(14, character.getHitPoints());
+	}
+	
+	@Test
+	public void shouldHaveAttackRollLevelBonusOfZeroWhenCharacterIsLevelOne() {
+		assertEquals(0, character.getAttackRollLevelBonus());
+	}
+	
+	@Test
+	public void shouldHaveAttackRollLevelBonusOfOneWhenCharacterIsLevelTwo() {
+		character.increaseLevel(1);
+		assertEquals(1, character.getAttackRollLevelBonus());
+	}
+	
+	@Test
+	public void shouldHaveAttackRollLevelBonusOfOneWhenCharacterIsLevelThree() {
+		character.increaseLevel(2);
+		assertEquals(1, character.getAttackRollLevelBonus());
+	}
+	
+	@Test
+	public void shouldHaveAttackRollLevelBonusOfTwoWhenCharacterIsLevelFour() {
+		character.increaseLevel(3);
+		assertEquals(2, character.getAttackRollLevelBonus());
+	}
+	
+	@Test
+	public void shouldHaveAttackRollLevelBonusOfTwoWhenCharacterIsLevelFive() {
+		character.increaseLevel(4);
+		assertEquals(2, character.getAttackRollLevelBonus());
+	}
+	
+	
+	// Weapon tests
+	
+	@Test
 	public void shouldHaveWeaponSetToNullByDefault() {
 		assertNull(character.getWeapon());
 	}

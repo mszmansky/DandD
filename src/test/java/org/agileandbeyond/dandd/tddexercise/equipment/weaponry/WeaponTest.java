@@ -21,21 +21,21 @@ public class WeaponTest {
 
 	@Test
 	public void shouldCreateAWeaponWithAName() {
-		weapon = createDagger();
+		weapon = new Dagger();
 		
 		assertEquals("Dagger", weapon.getName());
 	}
 	
 	@Test
 	public void shouldSetTheAttackModifier() {
-		weapon = createDagger();
+		weapon = new Dagger();
 		
 		assertEquals(1, weapon.getAttackModifier());
 	}
 	
 	@Test
 	public void shouldSetTheDamageModifier() {
-		weapon = createDagger();
+		weapon = new Dagger();
 		
 		assertEquals(1, weapon.getDamageModifier());
 	}
@@ -44,7 +44,7 @@ public class WeaponTest {
 	public void shouldHitArmorClassOfTwoWhenUsingDagger() throws Exception {
 		
 		Character blorhoff = new Character();
-		blorhoff.wieldWeapon(createDagger());
+		blorhoff.wieldWeapon(new Dagger());
 		Character monster = new Character();
 		monster.setArmorClass(2);
 		
@@ -55,7 +55,7 @@ public class WeaponTest {
 	@Test
 	public void shouldNotHitArmorClassOfThreeWhenUsingDagger() throws CannotUseWeaponException {
 		Character blorhoff = new Character();
-		blorhoff.wieldWeapon(createDagger());
+		blorhoff.wieldWeapon(new Dagger());
 		Character monster = new Character();
 		monster.setArmorClass(3);
 		
@@ -66,7 +66,7 @@ public class WeaponTest {
 	@Test
 	public void shouldIncreaseDamageByOneWhenUsingDagger() throws CannotUseWeaponException {
 		Character blorhoff = new Character();
-		blorhoff.wieldWeapon(createDagger());
+		blorhoff.wieldWeapon(new Dagger());
 		Character monster = new Character();
 		monster.setArmorClass(2);
 		
@@ -78,18 +78,31 @@ public class WeaponTest {
 	@Test
 	public void shouldIncreaseDamageByTwoWhenUsingDaggerAndCriticalHit() throws Exception {
 		Character blorhoff = new Character();
-		blorhoff.wieldWeapon(createDagger());
+		blorhoff.wieldWeapon(new Dagger());
 		Character monster = new Character();
 		monster.setArmorClass(2);
 		
 		blorhoff.attack(monster, Character.CRITICAL_HIT);
 		
-		assertEquals(2, monster.getHitPoints());
+		assertEquals(1, monster.getHitPoints());
+	}
+	
+	@Test
+	public void shouldIncreaseDamageByTenWhenUsingSwordAndCriticalHit() throws Exception {
+		Character blorhoff = new Character();
+		blorhoff.wieldWeapon(new Sword());
+		Character monster = new Character();
+		monster.setArmorClass(2);
+		monster.setHitPoints(10);
+		
+		blorhoff.attack(monster, Character.CRITICAL_HIT);
+		
+		assertTrue(monster.isDead());
 	}
 	
 	@Test
 	public void shouldHoldADaggerWithOneHand() {
-		Weapon dagger = createDagger();
+		Weapon dagger = new Dagger();
 		assertFalse(dagger.isTwoHanded());
 	}
 	
@@ -107,17 +120,6 @@ public class WeaponTest {
 		weapon.setAttackModifier(5);
 		weapon.setDamageModifier(5);
 		weapon.setTwoHanded(true);
-		
-		return weapon;
-	}
-	
-	private Weapon createDagger() {
-		Weapon weapon = new Weapon();
-		
-		weapon.setName("Dagger");
-		weapon.setAttackModifier(1);
-		weapon.setDamageModifier(1);
-		weapon.setTwoHanded(false);
 		
 		return weapon;
 	}
