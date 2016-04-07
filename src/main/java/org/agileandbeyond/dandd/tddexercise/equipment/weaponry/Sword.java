@@ -6,6 +6,7 @@ public class Sword extends Weapon {
 		this.setAttackModifier(4);
 		this.setDamageModifier(5);
 		this.setTwoHanded(false);
+		this.setRequiredLevel(1);
 	}
 }
 	

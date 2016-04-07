@@ -7,5 +7,6 @@ public class Dagger extends Weapon {
 		this.setName("Dagger");
 		this.setAttackModifier(1);
 		this.setDamageModifier(1);
+		this.setRequiredLevel(1);
 	}
 }

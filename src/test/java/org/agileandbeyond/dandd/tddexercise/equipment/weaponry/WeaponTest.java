@@ -13,10 +13,11 @@ import org.junit.Test;
 public class WeaponTest {
 	
 	private Weapon weapon;
+	private Character blorhoff;
 	
 	@Before
 	public void setup() {
-		
+		blorhoff = new Character();
 	}
 
 	@Test
@@ -42,8 +43,6 @@ public class WeaponTest {
 	
 	@Test
 	public void shouldHitArmorClassOfTwoWhenUsingDagger() throws Exception {
-		
-		Character blorhoff = new Character();
 		blorhoff.wieldWeapon(new Dagger());
 		Character monster = new Character();
 		monster.setArmorClass(2);
@@ -54,7 +53,6 @@ public class WeaponTest {
 	
 	@Test
 	public void shouldNotHitArmorClassOfThreeWhenUsingDagger() throws CannotUseWeaponException {
-		Character blorhoff = new Character();
 		blorhoff.wieldWeapon(new Dagger());
 		Character monster = new Character();
 		monster.setArmorClass(3);
@@ -65,7 +63,6 @@ public class WeaponTest {
 	
 	@Test
 	public void shouldIncreaseDamageByOneWhenUsingDagger() throws CannotUseWeaponException {
-		Character blorhoff = new Character();
 		blorhoff.wieldWeapon(new Dagger());
 		Character monster = new Character();
 		monster.setArmorClass(2);
@@ -77,7 +74,6 @@ public class WeaponTest {
 	
 	@Test
 	public void shouldIncreaseDamageByTwoWhenUsingDaggerAndCriticalHit() throws Exception {
-		Character blorhoff = new Character();
 		blorhoff.wieldWeapon(new Dagger());
 		Character monster = new Character();
 		monster.setArmorClass(2);
@@ -89,7 +85,6 @@ public class WeaponTest {
 	
 	@Test
 	public void shouldIncreaseDamageByTenWhenUsingSwordAndCriticalHit() throws Exception {
-		Character blorhoff = new Character();
 		blorhoff.wieldWeapon(new Sword());
 		Character monster = new Character();
 		monster.setArmorClass(2);
@@ -112,6 +107,11 @@ public class WeaponTest {
 		assertTrue(sword.isTwoHanded());
 	}
 	
+	@Test(expected=CannotUseWeaponException.class)
+	public void shouldNotBeAbleToUseBroadSwordWhenLevelOne() throws CannotUseWeaponException {
+		blorhoff.wieldWeapon(new BroadSword());
+	}
+	
 	
 	private Weapon createLongSword() {
 		Weapon weapon = new Weapon();
@@ -120,6 +120,7 @@ public class WeaponTest {
 		weapon.setAttackModifier(5);
 		weapon.setDamageModifier(5);
 		weapon.setTwoHanded(true);
+		weapon.setRequiredLevel(2);
 		
 		return weapon;
 	}

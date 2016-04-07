@@ -228,10 +228,14 @@ public class Character {
 	}
 
 	public void wieldWeapon(Weapon weapon) throws CannotUseWeaponException {
-		if (this.armorSet.shield != null) {
+		if (armorSet.shield != null) {
 			if (weapon.isTwoHanded()) {
-				throw new CannotUseWeaponException();
+				throw new CannotUseWeaponException("Cannot wield a two-handed weapon when using a shield.");
 			}
+		}
+		
+		if (getLevel() < weapon.getRequiredLevel()) {
+			throw new CannotUseWeaponException("You do not meet the minimum requirements to wield this weapon.");
 		}
 		this.weapon = weapon;
 	}

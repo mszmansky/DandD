@@ -6,5 +6,6 @@ public class BroadSword extends Sword {
 		this.setAttackModifier(5);
 		this.setDamageModifier(7);
 		this.setTwoHanded(true);
+		this.setRequiredLevel(2);
 	}
 }

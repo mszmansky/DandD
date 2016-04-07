@@ -5,6 +5,7 @@ public abstract class Equipment {
 	protected String name;
 	protected int cost;
 	protected int weight;
+	protected int requiredLevel;
 
 	public String getName() {
 		return name;
@@ -28,6 +29,14 @@ public abstract class Equipment {
 
 	public void setWeight(int weight) {
 		this.weight = weight;
+	}
+
+	public int getRequiredLevel() {
+		return requiredLevel;
+	}
+
+	public void setRequiredLevel(int requiredLevel) {
+		this.requiredLevel = requiredLevel;
 	}
 
 }

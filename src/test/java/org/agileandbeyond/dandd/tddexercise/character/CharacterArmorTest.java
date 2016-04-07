@@ -105,6 +105,7 @@ public class CharacterArmorTest {
 	
 	@Test(expected = CannotUseShieldException.class)
 	public void shouldNotBeAbleToUseShieldWhenWieldingTwoHandedBroadSword() throws Exception{
+		grog.setLevel(2);
 		grog.wieldWeapon(createBroadSword());
 		grog.useShield(createShield());
 	}
