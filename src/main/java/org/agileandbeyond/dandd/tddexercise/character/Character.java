@@ -1,12 +1,16 @@
 package org.agileandbeyond.dandd.tddexercise.character;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.agileandbeyond.dandd.tddexercise.equipment.WearablePosition;
 import org.agileandbeyond.dandd.tddexercise.equipment.armor.Armor;
+import org.agileandbeyond.dandd.tddexercise.equipment.armor.Ring;
 import org.agileandbeyond.dandd.tddexercise.equipment.armor.Shield;
 import org.agileandbeyond.dandd.tddexercise.equipment.weaponry.Weapon;
+import org.agileandbeyond.dandd.tddexercise.exception.CannotUseArmorException;
 import org.agileandbeyond.dandd.tddexercise.exception.CannotUseShieldException;
 import org.agileandbeyond.dandd.tddexercise.exception.CannotUseWeaponException;
 
@@ -37,7 +41,7 @@ public class Character {
 		armorSet = new ArmorSet();
 	}
 	
-	public void donArmor(Armor armor) {
+	public void donArmor(Armor armor) throws CannotUseArmorException {
 		WearablePosition position = armor.getPosition();
 		
 		switch (position) {
@@ -53,12 +57,22 @@ public class Character {
 		case FEET:
 			this.armorSet.setBoots(armor);
 			break;
-		default:
+		case FINGERS:
+			wearRing((Ring)armor);
 			break;
+		default:
+			throw new CannotUseArmorException();
 		}
 		this.armorClass += armor.getArmorClassModifier();
 	}
 	
+	public void wearRing(Ring ring) throws CannotUseArmorException{
+		if (armorSet.rings.size() < 2) {
+			this.armorSet.addRing(ring);
+		} else {
+			throw new CannotUseArmorException("Can only wear two rings at one time.");
+		}
+	}
 	public void useShield(Shield shield) throws Exception{
 		if (this.getWeapon() != null) {
 			if (this.getWeapon().isTwoHanded()) {
@@ -107,6 +121,14 @@ public class Character {
 			wearingBoots = true;
 		}
 		return wearingBoots;
+	}
+	
+	public boolean isWearingARing() {
+		boolean wearingRing = false;
+		if (this.armorSet.rings.size() >= 1) {
+			wearingRing = true;
+		}
+		return wearingRing;
 	}
 	
 	
@@ -276,6 +298,11 @@ public class Character {
 		private Armor boots;
 		private Armor gauntlets;
 		private Shield shield;
+		private List<Ring> rings;
+		
+		public ArmorSet() {
+			rings = new ArrayList<Ring>(2);
+		}
 		
 		public void setMail(Armor mail) {
 			this.mail = mail;
@@ -292,8 +319,12 @@ public class Character {
 		public void setShield(Shield shield) {
 			this.shield = shield;
 		}
-		
-		
+		public void addRing(Ring ring) {
+			if (rings == null) {
+				rings = new ArrayList<Ring>();
+			}
+			rings.add(ring);
+		}
 	}
 
 	public Race getRace() {

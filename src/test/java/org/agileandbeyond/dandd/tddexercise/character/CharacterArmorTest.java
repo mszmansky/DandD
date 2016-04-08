@@ -1,17 +1,21 @@
 package org.agileandbeyond.dandd.tddexercise.character;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertTrue;
 
-import org.agileandbeyond.dandd.tddexercise.character.Character;
 import org.agileandbeyond.dandd.tddexercise.equipment.armor.Armor;
 import org.agileandbeyond.dandd.tddexercise.equipment.armor.Boots;
 import org.agileandbeyond.dandd.tddexercise.equipment.armor.Gauntlets;
 import org.agileandbeyond.dandd.tddexercise.equipment.armor.Helmet;
 import org.agileandbeyond.dandd.tddexercise.equipment.armor.MailArmor;
+import org.agileandbeyond.dandd.tddexercise.equipment.armor.Ring;
 import org.agileandbeyond.dandd.tddexercise.equipment.armor.Shield;
 import org.agileandbeyond.dandd.tddexercise.equipment.weaponry.BroadSword;
 import org.agileandbeyond.dandd.tddexercise.equipment.weaponry.Dagger;
 import org.agileandbeyond.dandd.tddexercise.equipment.weaponry.Weapon;
+import org.agileandbeyond.dandd.tddexercise.exception.CannotUseArmorException;
 import org.agileandbeyond.dandd.tddexercise.exception.CannotUseShieldException;
 import org.agileandbeyond.dandd.tddexercise.exception.CannotUseWeaponException;
 import org.junit.Before;
@@ -27,7 +31,7 @@ public class CharacterArmorTest {
 	}
 	
 	@Test
-	public void shouldDonHelmetAndIncreaseArmorClassByOne() {
+	public void shouldDonHelmetAndIncreaseArmorClassByOne() throws CannotUseArmorException {
 		int armorClassBefore = grog.getArmorClass();
 		Armor helmet = createHelmet();
 		grog.donArmor(helmet);
@@ -36,7 +40,7 @@ public class CharacterArmorTest {
 	}
 	
 	@Test
-	public void shouldDonHelmetAndBeAHelmetWearer() {
+	public void shouldDonHelmetAndBeAHelmetWearer() throws CannotUseArmorException {
 		grog.donArmor(createHelmet());
 		
 		assertTrue(grog.isWearingHelmet());
@@ -48,7 +52,7 @@ public class CharacterArmorTest {
 	}
 	
 	@Test
-	public void shouldDonChainMailAndBeALittleMoreProtected() {
+	public void shouldDonChainMailAndBeALittleMoreProtected() throws CannotUseArmorException {
 		grog.donArmor(createChainMail());
 		
 		assertTrue(grog.isWearingMail());
@@ -60,7 +64,7 @@ public class CharacterArmorTest {
 	}
 	
 	@Test
-	public void shouldDonGauntletsAndHaveSweetArmoredHands(){
+	public void shouldDonGauntletsAndHaveSweetArmoredHands() throws CannotUseArmorException{
 		grog.donArmor(createGauntlets());
 		
 		assertTrue(grog.isWearingGauntlets());
@@ -72,7 +76,7 @@ public class CharacterArmorTest {
 	}
 	
 	@Test
-	public void shouldDonBootsAndHaveProtectedTreads(){
+	public void shouldDonBootsAndHaveProtectedTreads() throws CannotUseArmorException{
 		grog.donArmor(createBoots());
 		
 		assertTrue(grog.isWearingBoots());
@@ -124,6 +128,36 @@ public class CharacterArmorTest {
 		
 		assertSame(dagger, grog.getWeapon());
 	}
+	
+	@Test
+	public void shouldNotHaveARingOutOfTheBox() {
+		assertFalse(grog.isWearingARing());
+	}
+	
+	@Test
+	public void shouldWearARingToIncreaseMyAbilities() throws CannotUseArmorException {
+		grog.donArmor(new Ring());
+		
+		assertTrue(grog.isWearingARing());
+	}
+	
+	@Test
+	public void shouldWearTwoRingsToMakeMeReallyBadAss() throws CannotUseArmorException {
+		grog.donArmor(new Ring());
+		grog.donArmor(new Ring());
+		
+		assertTrue(grog.isWearingARing());
+	}
+	
+	@Test(expected=CannotUseArmorException.class)
+	public void shouldThrowCannotUseArmorExceptionWhenTryingToWearThreeRings() throws CannotUseArmorException {
+		grog.donArmor(new Ring());
+		grog.donArmor(new Ring());
+		grog.donArmor(new Ring());
+	}
+	
+	
+	
 	
 	private Weapon createBroadSword(){
 		Weapon broadSword = new BroadSword();
