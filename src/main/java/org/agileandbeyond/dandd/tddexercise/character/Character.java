@@ -3,6 +3,7 @@ package org.agileandbeyond.dandd.tddexercise.character;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.agileandbeyond.dandd.tddexercise.Purse;
 import org.agileandbeyond.dandd.tddexercise.equipment.WearablePosition;
 import org.agileandbeyond.dandd.tddexercise.equipment.armor.Armor;
 import org.agileandbeyond.dandd.tddexercise.equipment.armor.Shield;
@@ -11,9 +12,9 @@ import org.agileandbeyond.dandd.tddexercise.exception.CannotUseShieldException;
 import org.agileandbeyond.dandd.tddexercise.exception.CannotUseWeaponException;
 
 public class Character {
-	
+
 	public static int CRITICAL_HIT = 20;
-	
+
 	private String name;
 	private Alignment alignment;
 	private int experiencePoints = 0;
@@ -25,6 +26,7 @@ public class Character {
 	private Weapon weapon;
 	private ArmorSet armorSet;
 	private Race race;
+	private Purse purse;
 
 	public Character() {
 		abilities = new HashMap<AbilityType, Ability>();
@@ -35,11 +37,12 @@ public class Character {
 		abilities.put(AbilityType.INTELLIGENCE, new Ability(AbilityType.INTELLIGENCE));
 		abilities.put(AbilityType.WISDOM, new Ability(AbilityType.WISDOM));
 		armorSet = new ArmorSet();
+		setPurse(new Purse());
 	}
-	
+
 	public void donArmor(Armor armor) {
 		WearablePosition position = armor.getPosition();
-		
+
 		switch (position) {
 		case HEAD:
 			this.armorSet.setHelmet(armor);
@@ -58,7 +61,7 @@ public class Character {
 		}
 		this.armorClass += armor.getArmorClassModifier();
 	}
-	
+
 	public void useShield(Shield shield) throws Exception{
 		if (this.getWeapon() != null) {
 			if (this.getWeapon().isTwoHanded()) {
@@ -68,7 +71,7 @@ public class Character {
 		this.armorSet.setShield(shield);
 		this.armorClass += shield.getArmorClassModifier();
 	}
-	
+
 	public boolean isUsingShield() {
 		boolean usingShield = false;
 		if (this.armorSet.shield != null) {
@@ -76,7 +79,7 @@ public class Character {
 		}
 		return usingShield;
 	}
-	
+
 	public boolean isWearingHelmet() {
 		boolean wearingHelmet = false;
 		if (this.armorSet.helmet != null) {
@@ -84,7 +87,7 @@ public class Character {
 		}
 		return wearingHelmet;
 	}
-	
+
 	public boolean isWearingMail() {
 		boolean wearingMail = false;
 		if (this.armorSet.mail != null) {
@@ -92,7 +95,7 @@ public class Character {
 		}
 		return wearingMail;
 	}
-	
+
 	public boolean isWearingGauntlets() {
 		boolean wearingGauntlets = false;
 		if (this.armorSet.gauntlets != null) {
@@ -100,7 +103,7 @@ public class Character {
 		}
 		return wearingGauntlets;
 	}
-	
+
 	public boolean isWearingBoots() {
 		boolean wearingBoots = false;
 		if (this.armorSet.boots != null) {
@@ -108,8 +111,8 @@ public class Character {
 		}
 		return wearingBoots;
 	}
-	
-	
+
+
 	public Alignment getAlignment() {
 		return alignment;
 	}
@@ -134,9 +137,9 @@ public class Character {
 		if (armorClass < 0) {
 			armorClass = 0;
 		}
-		
+
 		this.armorClass = armorClass;
-		
+
 	}
 
 	public int getHitPoints() {
@@ -147,7 +150,7 @@ public class Character {
 		if (hitPoints < 0) {
 			hitPoints = 0;
 		}
-		
+
 		this.hitPoints = hitPoints;
 	}
 
@@ -185,43 +188,43 @@ public class Character {
 
 	public int getExperiencePoints() {
 		return experiencePoints;
-	}	
+	}
 
 	public boolean isDead() {
 		return hitPoints <= 0;
 	}
-	
+
 	public boolean attack(Character combatant, int attackRoll) {
 		boolean hit = false;
-		
+
 		if (weapon != null) {
 			attackRoll = attackRoll + weapon.getAttackModifier();
 		}
-		
+
 		if (attackRoll >= combatant.getArmorClass()) {
 			hit = true;
 			increaseExperiencePoints(10);
-			
+
 			combatant.setHitPoints(combatant.getHitPoints()-calculateDamage(attackRoll));
 		}
-		
+
 		return hit;
 	}
-	
+
 	private int calculateDamage(int attackRoll) {
 		int damage = 1;
-		
+
 		if (weapon != null) {
 			damage = damage + weapon.getDamageModifier();
 		}
-		
+
 		if (attackRoll >= CRITICAL_HIT) {
 			damage = damage * 2;
 		}
-		
+
 		return damage;
 	}
-	
+
 
 	public Weapon getWeapon() {
 		return weapon;
@@ -235,44 +238,44 @@ public class Character {
 		}
 		this.weapon = weapon;
 	}
-	
+
 	protected void increaseHitPoints(int increase) {
 		hitPoints+=increase;
 	}
 
 	protected void increaseLevel(int increase) {
 		level+=increase;
-		
+
 		int increaseHitPointsBy = increase*5 + getAbility(AbilityType.CONSTITUTION).getModifier();
 		increaseHitPoints(increaseHitPointsBy);
-		
+
 		this.attackRollLevelBonus = (level/2);
 	}
-	
+
 	protected void increaseExperiencePoints(int increase) {
 		int currentLevel = this.level;
-		
+
 		experiencePoints+=increase;
-		
+
 		int newLevel = (experiencePoints/1000)+1;
 		if (newLevel > currentLevel) {
 			int increaseLevelBy = newLevel - level;
 			increaseLevel(increaseLevelBy);
 		}
 	}
-	
+
 	public int getAttackRollLevelBonus() {
 		return attackRollLevelBonus;
 	}
 
-	
+
 	private class ArmorSet {
 		private Armor mail;
 		private Armor helmet;
 		private Armor boots;
 		private Armor gauntlets;
 		private Shield shield;
-		
+
 		public void setMail(Armor mail) {
 			this.mail = mail;
 		}
@@ -288,8 +291,8 @@ public class Character {
 		public void setShield(Shield shield) {
 			this.shield = shield;
 		}
-		
-		
+
+
 	}
 
 	public Race getRace() {
@@ -307,4 +310,13 @@ public class Character {
 	public void setLevel(int level) {
 		this.level = level;
 	}
+
+	public Purse getPurse() {
+		return purse;
+	}
+
+	public void setPurse(Purse purse) {
+		this.purse = purse;
+	}
+
 }
