@@ -347,6 +347,7 @@ public class CharacterTest {
 		assertEquals(0, character.getRace().getWisdomModifier());
 		assertEquals(0, character.getRace().getIntelligenceModifier());
 		assertEquals(0, character.getRace().getCharismaModifier());
+		assertEquals(0, character.getRace().getCriticalRangeBonus());
 	}
 	
 	@Test
@@ -362,5 +363,95 @@ public class CharacterTest {
 		assertEquals(-1, character.getRace().getWisdomModifier());
 		assertEquals(-1, character.getRace().getIntelligenceModifier());
 		assertEquals(-1, character.getRace().getCharismaModifier());
+		assertEquals(0, character.getRace().getCriticalRangeBonus());
+	}
+	
+	@Test
+	public void shouldGetCorrectValuesForAllDwarfAttributes() {
+		Dwarf dwarf = new Dwarf();
+		character.setRace(dwarf);
+		
+		assertEquals(RaceType.DWARF, character.getRace().getRaceType());
+		assertEquals(0, character.getRace().getArmorClassModifier());
+		assertEquals(0, character.getRace().getStrengthModifier());
+		assertEquals(0, character.getRace().getDexterityModifier());
+		assertEquals(1, character.getRace().getConstitutionModifier());
+		assertEquals(0, character.getRace().getWisdomModifier());
+		assertEquals(0, character.getRace().getIntelligenceModifier());
+		assertEquals(-1, character.getRace().getCharismaModifier());
+		assertEquals(0, character.getRace().getCriticalRangeBonus());
+	}
+	
+	@Test
+	public void shouldGetCorrectValuesForAllElfAttributes() {
+		Elf elf = new Elf();
+		character.setRace(elf);
+		
+		assertEquals(RaceType.ELF, character.getRace().getRaceType());
+		assertEquals(0, character.getRace().getArmorClassModifier());
+		assertEquals(0, character.getRace().getStrengthModifier());
+		assertEquals(1, character.getRace().getDexterityModifier());
+		assertEquals(-1, character.getRace().getConstitutionModifier());
+		assertEquals(0, character.getRace().getWisdomModifier());
+		assertEquals(0, character.getRace().getIntelligenceModifier());
+		assertEquals(0, character.getRace().getCharismaModifier());
+		assertEquals(1, character.getRace().getCriticalRangeBonus());
+	}
+	
+	@Test
+	public void shouldLandACriticalHitWithAnAttackRollOf19AsAnElfBecauseElvesAreOverpowered() throws Exception {
+		int initialCombatantHp = 20;
+		int weaponDamage = 0;
+		
+		character.setRace(new Elf());
+		character.wieldWeapon(new Dagger());
+		combatant.setRace(new Human());
+		combatant.setArmorClass(10);
+		
+		weaponDamage = character.getWeapon().getDamageModifier();
+		
+		combatant.setHitPoints(initialCombatantHp);
+		character.attack(combatant, 19);
+		
+		assertEquals(initialCombatantHp - ((1 + weaponDamage)*2), combatant.getHitPoints());
+	}
+	
+	@Test
+	public void shouldMissWhenAnOrcAttacksAnElfDueToPlusTwoToArmorClassWhenElvesAreAttackedByOrcs() {
+		character.setRace(new Orc());
+		combatant.setRace(new Elf());
+		combatant.setArmorClass(10);
+		
+		assertFalse(character.attack(combatant, 10));
+	}
+	
+	@Test
+	public void shouldHitOrcWhenDwarfReceivesRacialAttackModifier() {
+		character.setRace(new Dwarf());
+		combatant.setRace(new Orc());
+		combatant.setArmorClass(10);
+		
+		assertTrue(character.attack(combatant, 8));
+	}
+	
+	@Test
+	public void shouldMissOrcWhenHumanReceivesRacialAttackModifierOfZero() {
+		character.setRace(new Human());
+		combatant.setRace(new Orc());
+		combatant.setArmorClass(10);
+		
+		assertFalse(character.attack(combatant, 8));
+	}
+	
+	@Test
+	public void shouldAddRacialDamageModifierWhenDwarfAttacksOrc() {
+		character.setRace(new Dwarf());
+		combatant.setRace(new Orc());
+		combatant.setArmorClass(10);
+		
+		combatant.setHitPoints(20);
+		character.attack(combatant, 10);
+		
+		assertEquals(17, combatant.getHitPoints());
 	}
 }

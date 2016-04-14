@@ -10,10 +10,9 @@ public abstract class Race {
 	private int wisdomModifier;
 	private int intelligenceModifier;
 	private int charismaModifier;
+	private int criticalRangeBonus;
 	
 	public Race() {
-		//Default to Human
-		this.raceType = RaceType.HUMAN;
 		this.armorClassModifier = 0;
 		this.strengthModifier = 0;
 		this.dexterityModifier = 0;
@@ -21,6 +20,7 @@ public abstract class Race {
 		this.wisdomModifier = 0;
 		this.intelligenceModifier = 0;
 		this.charismaModifier = 0;
+		this.criticalRangeBonus = 0;
 	}
 
 	public RaceType getRaceType() {
@@ -33,6 +33,10 @@ public abstract class Race {
 
 	public int getArmorClassModifier() {
 		return armorClassModifier;
+	}
+	
+	public int getRacialBonusArmorClassModifier(Character attacker) {
+		return 0;
 	}
 
 	public void setArmorClassModifier(int armorClassModifier) {
@@ -87,5 +91,19 @@ public abstract class Race {
 		this.charismaModifier = charismaModifier;
 	}
 	
+	public int getAttackModifier(Character combatant){
+		return 0;
+	}
 	
+	public int getDamageModifier(Character combatant){
+		return 0;
+	}
+
+	public int getCriticalRangeBonus() {
+		return criticalRangeBonus;
+	}
+
+	public void setCriticalRangeBonus(int criticalRangeBonus) {
+		this.criticalRangeBonus = criticalRangeBonus;
+	}
 }

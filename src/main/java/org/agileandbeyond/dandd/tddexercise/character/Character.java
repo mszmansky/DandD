@@ -38,6 +38,9 @@ public class Character {
 		abilities.put(AbilityType.WISDOM, new Ability(AbilityType.WISDOM));
 		armorSet = new ArmorSet();
 		setPurse(new Purse());
+		
+		//TODO - Autowire race attribute (I think?)
+		race = new Human();
 	}
 
 	public void donArmor(Armor armor) {
@@ -196,35 +199,42 @@ public class Character {
 
 	public boolean attack(Character combatant, int attackRoll) {
 		boolean hit = false;
+		
+		//Since crits are only calculated based on the initial attack roll, 
+		//attackRoll should remain constant
+		int modifiedAttackRoll = attackRoll + race.getAttackModifier(combatant);
 
 		if (weapon != null) {
-			attackRoll = attackRoll + weapon.getAttackModifier();
+			modifiedAttackRoll = modifiedAttackRoll + weapon.getAttackModifier();
 		}
 
-		if (attackRoll >= combatant.getArmorClass()) {
+		if (modifiedAttackRoll >= combatantArmorClass(combatant)) {
 			hit = true;
 			increaseExperiencePoints(10);
 
-			combatant.setHitPoints(combatant.getHitPoints()-calculateDamage(attackRoll));
+			combatant.setHitPoints(combatant.getHitPoints()-calculateDamage(combatant, attackRoll));
 		}
 
 		return hit;
 	}
+	
+	private int combatantArmorClass(Character combatant) {
+		return combatant.getArmorClass() + combatant.getRace().getRacialBonusArmorClassModifier(this);
+	}
 
-	private int calculateDamage(int attackRoll) {
-		int damage = 1;
+	private int calculateDamage(Character combatant, int attackRoll) {
+		int damage = 1 + race.getDamageModifier(combatant);
 
 		if (weapon != null) {
 			damage = damage + weapon.getDamageModifier();
 		}
 
-		if (attackRoll >= CRITICAL_HIT) {
+		if (attackRoll + this.getRace().getCriticalRangeBonus() >= CRITICAL_HIT) {
 			damage = damage * 2;
 		}
 
 		return damage;
 	}
-
 
 	public Weapon getWeapon() {
 		return weapon;
@@ -268,7 +278,6 @@ public class Character {
 		return attackRollLevelBonus;
 	}
 
-
 	private class ArmorSet {
 		private Armor mail;
 		private Armor helmet;
@@ -291,8 +300,6 @@ public class Character {
 		public void setShield(Shield shield) {
 			this.shield = shield;
 		}
-
-
 	}
 
 	public Race getRace() {
