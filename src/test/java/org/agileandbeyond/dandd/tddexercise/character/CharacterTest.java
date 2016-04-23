@@ -479,7 +479,7 @@ public class CharacterTest {
 	}
 	
 	@Test
-	public void shouldMissWhenHalflingReceivesRacialArmorClassBonus() {
+	public void shouldCauseAttackToMissHalflingWhenHalflingReceivesRacialArmorClassBonusWhenAttackedByNonHalflings() {
 		character.setRace(halfling);
 		combatant.setRace(elf);
 		
