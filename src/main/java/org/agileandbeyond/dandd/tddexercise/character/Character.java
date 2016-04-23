@@ -39,7 +39,6 @@ public class Character {
 		armorSet = new ArmorSet();
 		setPurse(new Purse());
 		
-		//TODO - Autowire race attribute (I think?)
 		race = new Human();
 	}
 
@@ -219,7 +218,7 @@ public class Character {
 	}
 	
 	private int combatantArmorClass(Character combatant) {
-		return combatant.getArmorClass() + combatant.getRace().getRacialBonusArmorClassModifier(this);
+		return combatant.getArmorClass() + combatant.getRace().getArmorClassBonus(this);
 	}
 
 	private int calculateDamage(Character combatant, int attackRoll) {

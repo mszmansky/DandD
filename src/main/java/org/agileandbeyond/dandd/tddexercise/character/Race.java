@@ -35,10 +35,6 @@ public abstract class Race {
 		return armorClassModifier;
 	}
 	
-	public int getRacialBonusArmorClassModifier(Character attacker) {
-		return 0;
-	}
-
 	public void setArmorClassModifier(int armorClassModifier) {
 		this.armorClassModifier = armorClassModifier;
 	}
@@ -106,4 +102,10 @@ public abstract class Race {
 	public void setCriticalRangeBonus(int criticalRangeBonus) {
 		this.criticalRangeBonus = criticalRangeBonus;
 	}
+	
+	public int getArmorClassBonus(Character combatant) {
+		return 0;
+	}
+	
+	
 }

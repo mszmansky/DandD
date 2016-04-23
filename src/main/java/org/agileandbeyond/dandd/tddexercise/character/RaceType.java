@@ -4,5 +4,6 @@ public enum RaceType {
 	HUMAN,
 	ORC,
 	DWARF,
-	ELF
+	ELF, 
+	HALFLING
 }

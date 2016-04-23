@@ -11,10 +11,10 @@ public class Elf extends Race {
 	}
 	
 	@Override
-	public int getRacialBonusArmorClassModifier(Character attacker) {
+	public int getArmorClassBonus(Character combatant) {
 		int racialBonusArmorClassModifier = 0;
 		
-		if (attacker.getRace().getRaceType() == RaceType.ORC) {
+		if (combatant.getRace().getRaceType() == RaceType.ORC) {
 			racialBonusArmorClassModifier = 2;
 		}
 		
