@@ -4,5 +4,6 @@ public class Human extends Race {
 
 	public Human() {
 		super();
+		this.setRaceType(RaceType.HUMAN);
 	}
 }
